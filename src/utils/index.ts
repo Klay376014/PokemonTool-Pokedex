@@ -1,4 +1,4 @@
-export const calculateStatRange = (baseStat: number, isHP = false, isLevel100 = false): number[] => {
+export const calculateStatRange = (baseStat: number, isHP = false, isLevel100 = false): [number, number] => {
   const level = isLevel100 ? 100 : 50
   const natureModifiers = [0.9, 1.1]
   

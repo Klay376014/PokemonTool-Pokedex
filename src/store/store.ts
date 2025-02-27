@@ -20,6 +20,9 @@ type Store = {
   setSearchTerm: (term: string) => void
   debouncedTerm: string
   setDebouncedTerm: (term: string) => void
+}
+
+type ThemeStore = {
   darkMode: boolean
   setDarkMode: (mode: boolean) => void
 }
@@ -74,7 +77,10 @@ export const useStore = create<Store>((set) => ({
   searchTerm: '',
   setSearchTerm: (term) => set({ searchTerm: term }),
   debouncedTerm: '',
-  setDebouncedTerm: (term) => set({ debouncedTerm: term }),
+  setDebouncedTerm: (term) => set({ debouncedTerm: term })
+}))
+
+export const useThemeStore = create<ThemeStore>((set) => ({
   darkMode: true,
   setDarkMode: (mode) => set({ darkMode: mode })
 }))

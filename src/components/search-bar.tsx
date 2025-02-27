@@ -1,4 +1,4 @@
-import { useStore } from '@/store/store'
+import { useStore, useThemeStore } from '@/store/store'
 import { Search, Moon, Sun } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -9,8 +9,8 @@ export function SearchBar() {
   const searchTerm = useStore((state) => state.searchTerm)
   const setSearchTerm = useStore((state) => state.setSearchTerm)
   const setDebouncedTerm = useStore((state) => state.setDebouncedTerm)
-  const darkMode = useStore((state) => state.darkMode)
-  const setDarkMode = useStore((state) => state.setDarkMode)
+  const darkMode = useThemeStore((state) => state.darkMode)
+  const setDarkMode = useThemeStore((state) => state.setDarkMode)
 
   useEffect(() => {
     const handler = setTimeout(() => {

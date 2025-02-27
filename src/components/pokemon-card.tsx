@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import AbilityPopover from '@/components/ability-popover'
 import { calculateStatRange } from '@/utils'
 import { ScrollArea } from './ui/scroll-area'
+import { useMemo } from 'react'
 
 const statColors = {
   hp: { fill: 'bg-red-500', unfilled: 'bg-red-200 dark:bg-red-950' },
@@ -16,7 +17,9 @@ const statColors = {
 
 export function PokemonCard() {
   const selectedPokemon = useStore((state) => state.selectedPokemon)
-  const totalBaseStats = Object.values(selectedPokemon.stats).reduce((sum, stat) => sum + stat, 0)
+  const totalBaseStats = useMemo(() => {
+    return Object.values(selectedPokemon.stats).reduce((sum, stat) => sum + stat, 0)
+  }, [selectedPokemon.stats])
 
   return (
     <Card className="dark:bg-gray-800 dark:text-white h-full">

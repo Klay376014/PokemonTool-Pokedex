@@ -2,7 +2,7 @@
 import axios from 'axios'
 import type { Ability, Pokemon, List } from '@/lib/schema'
 import { useEffect, useRef, useCallback } from 'react'
-import { useStore } from '@/store/store'
+import { useStore, useThemeStore } from '@/store/store'
 import {
   Sidebar,
   SidebarContent,
@@ -69,22 +69,20 @@ export function Pokedex() {
   useEffect(() => {
     if (initialFetch.current) {
       fetchPokemonList()
+      initialFetch.current = false
     }
   }, [fetchPokemonList])
 
   useEffect(() => {
-    if (initialFetch.current) {
-      fetchPokemon()
-      initialFetch.current = false
+    const abortController = new AbortController()
+    fetchPokemon()
+    return () => {
+      abortController.abort()
     }
   }, [fetchPokemon])
 
-  useEffect(() => {
-    fetchPokemon()
-  }, [fetchPokemon])
 
-
-  const darkMode = useStore((state) => state.darkMode)
+  const darkMode = useThemeStore((state) => state.darkMode)
 
   return (
     <SidebarProvider>
