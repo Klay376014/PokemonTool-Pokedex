@@ -61,3 +61,4 @@ const PokemonListSchema = z.object({
 export type Pokemon = z.infer<typeof pokemonSchema>
 export type Ability = z.infer<typeof AbilitySchema>
 export type List = z.infer<typeof PokemonListSchema>
+export type PokemonType = 'Grass' | 'Poison' | 'Normal' | 'Fire' | 'Water' | 'Electric' | 'Ice' | 'Fighting' | 'Ground' | 'Flying' | 'Psychic' | 'Bug' | 'Rock' | 'Ghost' | 'Dragon' | 'Dark' | 'Steel' | 'Fairy'

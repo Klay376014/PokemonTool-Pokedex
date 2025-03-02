@@ -1,10 +1,13 @@
 import { useStore } from '@/store/store'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import AbilityPopover from '@/components/ability-popover'
-import { calculateStatRange } from '@/utils'
+import { Badge } from './ui/badge'
 import { ScrollArea } from './ui/scroll-area'
+import { calculateStatRange } from '@/utils'
 import { useMemo } from 'react'
+import AbilityPopover from '@/components/ability-popover'
+import { TypeBadge } from './type-badge'
+import { DefenseTypeTable } from './defense-type-table'
+import type { PokemonType } from '@/lib/schema'
 
 const statColors = {
   hp: { fill: 'bg-red-500', unfilled: 'bg-red-200 dark:bg-red-950' },
@@ -31,9 +34,7 @@ export function PokemonCard() {
               #{selectedPokemon.id.toString().padStart(3, '0')}
               <div className="flex gap-2 ml-3 font-bold">
                 {selectedPokemon.type.map((type) => (
-                  <Badge key={type} className="dark:bg-gray-700 dark:hover:bg-gray-400 dark:hover:text-white rounded-3xl">
-                    {type}
-                  </Badge>
+                  <TypeBadge type={type as PokemonType} isTable={false} />
                 ))}
               </div>
             </span>
@@ -43,14 +44,19 @@ export function PokemonCard() {
       <CardContent className="pt-6">
         <div className="grid md:grid-cols-2 gap-6">
           <div className="md:mr-10">
-            <img
+            <div className='flex justify-between items-center mb-6'>
+              <img
               src={`https://www.pokemon.com/static-assets/content-assets/cms2/img/pokedex/full/${selectedPokemon.id.toString().padStart(3, '0')}.png`}
               alt={selectedPokemon.name}
-              height='350'
-              width='350'
-              className="mb-5 mt-3 dark:bg-gray-700 mx-auto"
-            />
-            <div className="space-y-5">
+              className="dark:bg-gray-700 mr-3"
+              style={{ height: '250px', width: '250px' }}
+              />
+              <div className='w-2/3'>
+              <p className='font-bold text-xl'>Type effective while damaged by</p>
+              <DefenseTypeTable type={selectedPokemon.type} />
+              </div>
+            </div>
+            <div className="space-y-6">
               <div className="flex gap-4">
                 <div className="flex-1">
                   <h3 className="font-semibold mb-2">Info</h3>
@@ -103,8 +109,8 @@ export function PokemonCard() {
             </div>
           </div>
           <div>
-            <h3 className="font-semibold mb-2">Moves</h3>
-            <ScrollArea className="h-[calc(100vh-16rem)] pr-4">
+            <h3 className="font-semibold mb-2 text-xl">Moves</h3>
+            <ScrollArea className="h-[calc(100vh-14rem)] pr-4">
               <div className="grid gap-2">
                 {selectedPokemon.moves.map((move) => (
                   <div key={move.name} className="bg-muted p-2 rounded-md dark:bg-gray-700">

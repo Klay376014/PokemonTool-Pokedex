@@ -1,9 +1,10 @@
+import { PokemonType } from '@/lib/schema'
 import { create } from 'zustand'
 
 type singlePokemon = {
   id: number
   name: string
-  type: string[]
+  type: PokemonType[]
   height: string
   weight: string
   abilities: { name: string; description: string; abilityType: string }[]
